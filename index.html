@@ -1,156 +1,231 @@
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family: Arial, sans-serif; background-color: #f4f4f4;} /* Ajuste para legibilidade */
-.wrap{padding:1.5rem 0;max-width:720px;margin:0 auto; background: white; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);}
-.header-logo{text-align:center;padding:20px 0;margin-bottom:10px}
-.header-logo img{max-width:280px;height:auto} /* Tamanho otimizado para a logo Bertan */
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual Bertan Resinas</title>
+    <style>
+        :root {
+            --color-text-primary: #333;
+            --color-text-secondary: #666;
+            --color-text-tertiary: #999;
+            --color-border: #e0e0e0;
+            --color-bg-light: #f9f9f9;
+            --border-radius: 12px;
+        }
 
-.section-title{font-size:11px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--color-text-tertiary);margin:1.5rem 0 0.75rem; padding: 0 1.5rem;}
-.product-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px; padding: 0 1.5rem;}
-.prod-btn{background:var(--color-background-primary);border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-lg);padding:1rem;cursor:pointer;text-align:left;transition:border-color 0.15s,background 0.15s;position:relative;overflow:hidden}
-.prod-btn:hover{border-color:var(--color-border-primary);background:var(--color-background-secondary)}
-.prod-btn.active{border-width:1.5px}
-.prod-btn.bv.active{border-color:#0F6E56;background:#E1F5EE}
-.prod-btn.mv.active{border-color:#185FA5;background:#E6F1FB}
-.prod-btn.av.active{border-color:#993C1D;background:#FAECE7}
-.prod-btn.pl.active{border-color:#3B6D11;background:#EAF3DE}
-.prod-label{font-size:13px;font-weight:500;color:var(--color-text-primary)}
-.prod-ratio{font-size:11px;color:var(--color-text-secondary);margin-top:3px}
-.prod-dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:6px;vertical-align:middle}
-.dot-bv{background:#1D9E75}.dot-mv{background:#378ADD}.dot-av{background:#D85A30}.dot-pl{background:#639922}
-.card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1rem 1.25rem;margin:0 1.5rem 10px}
-.card-title{font-size:14px;font-weight:500;color:var(--color-text-primary);margin-bottom:8px}
-.prep-row{display:flex;gap:8px;align-items:flex-start;margin-bottom:6px}
-.prep-tag{font-size:11px;font-weight:500;padding:3px 8px;border-radius:4px;white-space:nowrap;flex-shrink:0}
-.prep-text{font-size:13px;color:var(--color-text-secondary);line-height:1.5}
-.meta-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:10px}
-.meta-item{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:8px;text-align:center}
-.meta-val{font-size:14px;font-weight:500;color:var(--color-text-primary)}
-.meta-lbl{font-size:10px;color:var(--color-text-tertiary);margin-top:2px}
-.calc-card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1.25rem; margin: 0 1.5rem;}
-.input-row{display:flex;align-items:center;gap:12px;margin-bottom:1rem}
-.input-row label{font-size:13px;color:var(--color-text-secondary);flex-shrink:0}
-.input-row input{flex:1;padding:8px 12px;font-size:15px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);background:var(--color-background-primary);color:var(--color-text-primary)}
-.results{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:1rem}
-.res-card{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:12px;text-align:center}
-.res-val{font-size:18px;font-weight:500;color:var(--color-text-primary)}
-.res-lbl{font-size:11px;color:var(--color-text-secondary);margin-top:3px}
-.divider{border:none;border-top:0.5px solid #eee;margin:1.5rem 0}
-.pop-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.7);display:flex;align-items:center;justify-content:center;z-index:100}
-.pop-box{background:white;border-radius:12px;padding:2rem;max-width:380px;width:90%;text-align:center}
-.pop-btn{display:block;width:100%;padding:12px;background:black;color:white;border:none;border-radius:6px;font-weight:bold;cursor:pointer;margin-top:15px}
-</style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Arial, sans-serif; }
+        body { background-color: #ffffff; color: var(--color-text-primary); line-height: 1.6; }
+        .wrap { max-width: 800px; margin: 0 auto; padding: 2rem; }
+        
+        /* Logo */
+        .header-logo { text-align: center; padding: 1rem 0 2rem; border-bottom: 1px solid var(--color-border); margin-bottom: 2rem; }
+        .header-logo img { max-width: 300px; height: auto; }
+
+        .section-title { font-size: 14px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--color-text-tertiary); margin: 2rem 0 1rem; }
+
+        /* Grid de Produtos */
+        .product-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 2rem; }
+        .prod-btn { background: #fff; border: 1px solid var(--color-border); border-radius: var(--border-radius); padding: 1.25rem; cursor: pointer; text-align: left; transition: all 0.2s; position: relative; }
+        .prod-btn:hover { border-color: #bbb; background: var(--color-bg-light); }
+        .prod-btn.active { border: 2px solid #333; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        
+        .prod-label { font-size: 16px; font-weight: 600; display: flex; align-items: center; gap: 8px; }
+        .prod-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+        .dot-bv { background: #1D9E75; } .dot-mv { background: #378ADD; } .dot-av { background: #D85A30; } .dot-pl { background: #639922; }
+        .prod-ratio { font-size: 13px; color: var(--color-text-secondary); margin-top: 5px; }
+
+        /* Cards de Informação */
+        .card { border: 1px solid var(--color-border); border-radius: var(--border-radius); padding: 1.5rem; margin-bottom: 1rem; background: #fff; }
+        .card-title { font-size: 18px; font-weight: 600; margin-bottom: 15px; }
+        .prep-tag { background: #eaf3f0; color: #1D9E75; font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 6px; margin-right: 10px; }
+        
+        .meta-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 20px; }
+        .meta-item { background: #f4f4f2; border-radius: 8px; padding: 15px; text-align: center; }
+        .meta-val { font-size: 16px; font-weight: 700; }
+        .meta-lbl { font-size: 11px; color: var(--color-text-tertiary); }
+
+        /* Calculadora */
+        .calc-card { border: 1px solid var(--color-border); border-radius: var(--border-radius); padding: 2rem; }
+        .input-group { margin-bottom: 1.5rem; display: flex; align-items: center; gap: 15px; }
+        .input-group label { font-size: 15px; font-weight: 500; }
+        input { flex: 1; padding: 12px; border: 1px solid var(--color-border); border-radius: 8px; font-size: 18px; }
+        
+        .results { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 1.5rem; }
+        .res-card { background: #f4f4f2; border-radius: 8px; padding: 20px; text-align: center; }
+        .res-val { font-size: 22px; font-weight: 700; color: #000; }
+        .res-lbl { font-size: 12px; color: var(--color-text-secondary); margin-top: 5px; }
+        
+        .alert-box { background: #fdf5e6; border: 1px solid #e6ccaa; color: #5c4033; padding: 15px; border-radius: 8px; font-size: 13px; margin-top: 15px; }
+
+        /* Guia de Pigmentação */
+        .acc-item { border: 1px solid var(--color-border); border-radius: 8px; margin-bottom: 10px; overflow: hidden; }
+        .acc-head { padding: 15px; background: #fff; cursor: pointer; display: flex; justify-content: space-between; font-weight: 600; font-size: 15px; }
+        .acc-body { padding: 15px; border-top: 1px solid var(--color-border); font-size: 14px; color: var(--color-text-secondary); background: #fafafa; }
+
+        /* Footer */
+        .footer-support { text-align: center; margin-top: 3rem; font-size: 14px; color: var(--color-text-secondary); border-top: 1px solid var(--color-border); padding-top: 2rem; }
+
+        /* Overlay */
+        .pop-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); display: flex; align-items: center; justify-content: center; z-index: 100; }
+        .pop-box { background: white; padding: 2.5rem; border-radius: 16px; max-width: 450px; text-align: center; }
+        .pop-btn { background: #000; color: #fff; border: none; padding: 12px 30px; border-radius: 8px; font-weight: 600; cursor: pointer; margin-top: 20px; width: 100%; }
+    </style>
+</head>
+<body>
 
 <div id="overlay" class="pop-overlay">
-  <div class="pop-box">
-    <div style="font-size:40px">⚠️</div>
-    <div style="font-size:18px; font-weight:bold; margin:10px 0">Segurança em Primeiro Lugar</div>
-    <p style="font-size:13px; color:#666; line-height:1.6">Use sempre <strong>luvas, máscara e óculos</strong>. O contato com a resina causa irritação[cite: 1].</p>
-    <button class="pop-btn" onclick="closePopup()">Concordo e Desejo Continuar</button>
-  </div>
+    <div class="pop-box">
+        <div style="font-size: 40px;">⚠️</div>
+        <h2 style="margin: 15px 0;">EPI Obrigatório</h2>
+        <p style="color: #666; font-size: 14px;">Use sempre luvas, máscara e óculos de proteção. O contato com o produto pode causar irritação e queimação.</p>
+        <button class="pop-btn" onclick="document.getElementById('overlay').style.display='none'">Entendido e continuar</button>
+    </div>
 </div>
 
 <div class="wrap">
-  <!-- LOGO DA BERTAN RESINAS ADICIONADA AQUI -->
-  <div class="header-logo">
-    <img src="LINK_DA_IMAGEM_AQUI" alt="Bertan Resinas">
-  </div>
-  
-  <hr class="divider">
-
-  <div class="section-title">Selecione o produto</div>
-  <div class="product-grid">
-    <button class="prod-btn bv active" onclick="selectProduct('bv',this)">
-      <div><span class="prod-dot dot-bv"></span><span class="prod-label">Baixa Viscosidade</span></div>
-      <div class="prod-ratio">45% endurecedor[cite: 1]</div>
-    </button>
-    <button class="prod-btn mv" onclick="selectProduct('mv',this)">
-      <div><span class="prod-dot dot-mv"></span><span class="prod-label">Média Viscosidade</span></div>
-      <div class="prod-ratio">50% endurecedor[cite: 1]</div>
-    </button>
-    <button class="prod-btn av" onclick="selectProduct('av',this)">
-      <div><span class="prod-dot dot-av"></span><span class="prod-label">Alta Viscosidade</span></div>
-      <div class="prod-ratio">40% endurecedor[cite: 1]</div>
-    </button>
-    <button class="prod-btn pl" onclick="selectProduct('pl',this)">
-      <div><span class="prod-dot dot-pl"></span><span class="prod-label">Porcelanato Líquido</span></div>
-      <div class="prod-ratio">50% endurecedor[cite: 1]</div>
-    </button>
-  </div>
-
-  <div class="section-title">Modo de preparo</div>
-  <div class="card" id="prep-card">
-    <div class="card-title" id="prep-title">Resina Epóxi Baixa Viscosidade</div>
-    <div class="prep-row">
-      <span class="prep-tag tag-bv" id="prep-tag">Proporção</span>
-      <span class="prep-text" id="prep-desc">Use 45% do componente B sobre o peso do componente A[cite: 1].</span>
+    <div class="header-logo">
+        <!-- Substitua pelo seu link final da logo -->
+        <img src="https://raw.githubusercontent.com/emelyroman/manual-bertan/main/logo%20bertan%20resinas.png" alt="Bertan Resinas">
     </div>
-    <div class="meta-row">
-      <div class="meta-item"><div class="meta-val" id="meta-thick">até 0,5cm</div><div class="meta-lbl">espessura[cite: 1]</div></div>
-      <div class="meta-item"><div class="meta-val" id="meta-dry">6h</div><div class="meta-lbl">secagem[cite: 1]</div></div>
-      <div class="meta-item"><div class="meta-val" id="meta-cure">48h</div><div class="meta-lbl">cura total[cite: 1]</div></div>
-    </div>
-  </div>
 
-  <div class="section-title">Calculadora de quantidade</div>
-  <div class="calc-card">
-    <div class="input-row">
-      <label>Área a aplicar (m²)</label>
-      <input type="number" id="area-input" value="1" min="0.1" step="0.1" oninput="calculate()">
+    <div class="section-title">Selecione o Produto</div>
+    <div class="product-grid">
+        <button class="prod-btn active" onclick="select('bv', this)">
+            <div class="prod-label"><span class="prod-dot dot-bv"></span> Baixa Viscosidade</div>
+            <div class="prod-ratio">45% endurecedor · mistura 4min</div>
+        </button>
+        <button class="prod-btn" onclick="select('mv', this)">
+            <div class="prod-label"><span class="prod-dot dot-mv"></span> Média Viscosidade</div>
+            <div class="prod-ratio">50% endurecedor · mistura 3min</div>
+        </button>
+        <button class="prod-btn" onclick="select('av', this)">
+            <div class="prod-label"><span class="prod-dot dot-av"></span> Alta Viscosidade</div>
+            <div class="prod-ratio">40% endurecedor · mistura 3min[cite: 1]</div>
+        </button>
+        <button class="prod-btn" onclick="select('pl', this)">
+            <div class="prod-label"><span class="prod-dot dot-pl"></span> Porcelanato Líquido</div>
+            <div class="prod-ratio">50% endurecedor · mistura 3min[cite: 1]</div>
+        </button>
     </div>
-    <div class="results">
-      <div class="res-card">
-        <div class="res-val" id="res-total">1,45 kg</div>
-        <div class="res-lbl">Total Mistura</div>
-      </div>
-      <div class="res-card">
-        <div class="res-val" id="res-a">1,00 kg</div>
-        <div class="res-lbl">Comp. A</div>
-      </div>
-      <div class="res-card">
-        <div class="res-val" id="res-b">0,45 kg</div>
-        <div class="res-lbl">Comp. B</div>
-      </div>
-    </div>
-    <p style="font-size:11px; color:#888; text-align:center">1kg de mistura cobre aproximadamente 1m²[cite: 1].</p>
-  </div>
 
-  <div style="text-align:center; padding: 2rem; font-size:12px; color:#999">
-    Suporte Bertan Resinas: (46) 9 9126-5778[cite: 1]
-  </div>
+    <div class="section-title">Modo de Preparo</div>
+    <div class="card">
+        <div class="card-title" id="p-name">Resina Epóxi Baixa Viscosidade</div>
+        <div style="display: flex; align-items: flex-start;">
+            <span class="prep-tag">Proporção</span>
+            <span id="p-desc" style="font-size: 15px;">Use <strong>45%</strong> do componente B sobre o peso do componente A. A cada 100g de resina (A), use 45g de endurecedor (B). Misture por <strong>4 minutos</strong>[cite: 1].</span>
+        </div>
+        <div class="meta-row">
+            <div class="meta-item"><div class="meta-val" id="m-thick">até 0,5cm</div><div class="meta-lbl">espessura/aplicação[cite: 1]</div></div>
+            <div class="meta-item"><div class="meta-val" id="m-dry">6h</div><div class="meta-lbl">tempo de secagem[cite: 1]</div></div>
+            <div class="meta-item"><div class="meta-val" id="m-cure">48h</div><div class="meta-lbl">cura total[cite: 1]</div></div>
+        </div>
+    </div>
+
+    <div class="section-title">Calculadora de Quantidade</div>
+    <div class="calc-card">
+        <div class="input-group">
+            <label>Área a aplicar (m²)</label>
+            <input type="number" id="area" value="5" oninput="calc()">
+        </div>
+        <div class="results">
+            <div class="res-card">
+                <div class="res-val" id="r-total">7,25 kg</div>
+                <div class="res-lbl">Total de mistura</div>
+                <div style="font-size: 10px; color: #999; margin-top: 5px;" id="r-ml">≈ 5.075 ml</div>
+            </div>
+            <div class="res-card">
+                <div class="res-val" id="r-a">5,00 kg</div>
+                <div class="res-lbl">Componente A</div>
+            </div>
+            <div class="res-card">
+                <div class="res-val" id="r-b">2,25 kg</div>
+                <div class="res-lbl" id="r-b-lbl">Componente B (45%)</div>
+            </div>
+        </div>
+        <p style="font-size: 13px; font-style: italic; color: #666; margin-bottom: 15px;" id="r-note">Misture por 4 minutos. Tempo de uso: 8 a 15 min antes de virar gel[cite: 1].</p>
+        <div class="alert-box">
+            Embalagens vendidas por <strong>kg</strong>. 1kg de resina epóxi = 700ml (densidade diferente da água). Prepare somente o que será usado no momento[cite: 1].
+        </div>
+    </div>
+
+    <div class="section-title">Guia de Pigmentação</div>
+    <div class="acc-item">
+        <div class="acc-head" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">
+            Pigmento sólido (pasta) <span>-</span>
+        </div>
+        <div class="acc-body">
+            Usar <strong>até 10%</strong> sobre o peso do componente A. Misture até dissolver por completo na resina antes de adicionar o componente B[cite: 1].<br>
+            <em>Exemplo: a cada 100g de resina, até 10g de pigmento sólido.</em>
+        </div>
+    </div>
+    <div class="acc-item">
+        <div class="acc-head" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">
+            Pigmento metalizado (pó) <span>-</span>
+        </div>
+        <div class="acc-body">
+            Usar <strong>até 5%</strong> sobre o peso do componente A. Misture bem até o pó se dissolver completamente na resina[cite: 1].<br>
+            <em>Exemplo: a cada 100g de resina, até 5g de pigmento metalizado.</em>
+        </div>
+    </div>
+    <div class="acc-item">
+        <div class="acc-head" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">
+            Pigmento líquido (corante) <span>-</span>
+        </div>
+        <div class="acc-body">
+            Usar <strong>de 1% a 3%</strong> sobre o peso do componente A. Dissolva completamente antes de adicionar o endurecedor[cite: 1].<br>
+            <em>Exemplo: a cada 100g de resina, de 1g a 3g de corante.</em>
+        </div>
+    </div>
+
+    <div class="footer-support">
+        Suporte técnico: (46) 9 9126-5778[cite: 1]
+    </div>
 </div>
 
 <script>
-// Mantive a sua lógica de cálculo que já estava perfeita
-const products={
-  bv:{name:"Resina Epóxi Baixa Viscosidade",pct:0.45,pctLabel:"45%",thick:"até 0,5cm",dry:"6h",cure:"48h",tag:"tag-bv"},
-  mv:{name:"Resina Epóxi Média Viscosidade",pct:0.50,pctLabel:"50%",thick:"até 2cm",dry:"8h",cure:"48h",tag:"tag-mv"},
-  av:{name:"Resina Epóxi Alta Viscosidade",pct:0.40,pctLabel:"40%",thick:"até 5cm",dry:"48h",cure:"7 dias",tag:"tag-av"},
-  pl:{name:"Porcelanato Líquido",pct:0.50,pctLabel:"50%",thick:"até 1cm",dry:"12h",cure:"72h",tag:"tag-pl"}
-};
-let cur="bv";
-function closePopup(){document.getElementById("overlay").style.display="none"}
-function selectProduct(key,btn){
-  cur=key;
-  document.querySelectorAll(".prod-btn").forEach(b=>b.classList.remove("active"));
-  btn.classList.add("active");
-  const p=products[key];
-  document.getElementById("prep-title").textContent=p.name;
-  document.getElementById("prep-desc").innerHTML=`Use <strong>${p.pctLabel}</strong> do componente B sobre o peso do componente A[cite: 1].`;
-  document.getElementById("prep-tag").className="prep-tag "+p.tag;
-  document.getElementById("meta-thick").textContent=p.thick;
-  document.getElementById("meta-dry").textContent=p.dry;
-  document.getElementById("meta-cure").textContent=p.cure;
-  calculate();
-}
-function calculate(){
-  const p=products[cur];
-  const area=parseFloat(document.getElementById("area-input").value)||0;
-  const a=area;
-  const b=a*p.pct;
-  const total=a+b;
-  document.getElementById("res-total").textContent=total.toFixed(2)+" kg";
-  document.getElementById("res-a").textContent=a.toFixed(2)+" kg";
-  document.getElementById("res-b").textContent=b.toFixed(2)+" kg";
-}
+    const data = {
+        bv: { name: 'Resina Epóxi Baixa Viscosidade', pct: 0.45, mix: 4, thick: 'até 0,5cm', dry: '6h', cure: '48h' },
+        mv: { name: 'Resina Epóxi Média Viscosidade', pct: 0.50, mix: 3, thick: 'até 2cm', dry: '8h', cure: '48h' },
+        av: { name: 'Resina Epóxi Alta Viscosidade', pct: 0.40, mix: 3, thick: 'até 5cm', dry: '48h', cure: '7 dias' },
+        pl: { name: 'Porcelanato Líquido', pct: 0.50, mix: 3, thick: 'até 1cm', dry: '12h', cure: '72h' }
+    };
+
+    let active = 'bv';
+
+    function select(id, btn) {
+        active = id;
+        document.querySelectorAll('.prod-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        
+        const p = data[id];
+        document.getElementById('p-name').innerText = p.name;
+        document.getElementById('p-desc').innerHTML = `Use <strong>${p.pct*100}%</strong> do componente B sobre o peso do componente A. A cada 100g de resina (A), use ${p.pct*100}g de endurecedor (B). Misture por <strong>${p.mix} minutos</strong>[cite: 1].`;
+        document.getElementById('m-thick').innerText = p.thick;
+        document.getElementById('m-dry').innerText = p.dry;
+        document.getElementById('m-cure').innerText = p.cure;
+        
+        calc();
+    }
+
+    function calc() {
+        const p = data[active];
+        const area = parseFloat(document.getElementById('area').value) || 0;
+        const a = area;
+        const b = a * p.pct;
+        const total = a + b;
+        
+        document.getElementById('r-total').innerText = total.toFixed(2) + ' kg';
+        document.getElementById('r-ml').innerText = '≈ ' + Math.round(total * 700).toLocaleString('pt-BR') + ' ml';
+        document.getElementById('r-a').innerText = a.toFixed(2) + ' kg';
+        document.getElementById('r-b').innerText = b.toFixed(2) + ' kg';
+        document.getElementById('r-b-lbl').innerText = `Componente B (${p.pct*100}%)`;
+        document.getElementById('r-note').innerText = `Misture por ${p.mix} minutos. Tempo de uso: 8 a 15 min antes de virar gel. Secagem: ${p.dry}[cite: 1].`;
+    }
+
+    calc();
 </script>
+
+</body>
+</html>
