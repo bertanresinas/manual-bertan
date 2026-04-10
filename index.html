@@ -1,1 +1,156 @@
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family: Arial, sans-serif; background-color: #f4f4f4;} /* Ajuste para legibilidade */
+.wrap{padding:1.5rem 0;max-width:720px;margin:0 auto; background: white; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);}
+.header-logo{text-align:center;padding:20px 0;margin-bottom:10px}
+.header-logo img{max-width:280px;height:auto} /* Tamanho otimizado para a logo Bertan */
 
+.section-title{font-size:11px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--color-text-tertiary);margin:1.5rem 0 0.75rem; padding: 0 1.5rem;}
+.product-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px; padding: 0 1.5rem;}
+.prod-btn{background:var(--color-background-primary);border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-lg);padding:1rem;cursor:pointer;text-align:left;transition:border-color 0.15s,background 0.15s;position:relative;overflow:hidden}
+.prod-btn:hover{border-color:var(--color-border-primary);background:var(--color-background-secondary)}
+.prod-btn.active{border-width:1.5px}
+.prod-btn.bv.active{border-color:#0F6E56;background:#E1F5EE}
+.prod-btn.mv.active{border-color:#185FA5;background:#E6F1FB}
+.prod-btn.av.active{border-color:#993C1D;background:#FAECE7}
+.prod-btn.pl.active{border-color:#3B6D11;background:#EAF3DE}
+.prod-label{font-size:13px;font-weight:500;color:var(--color-text-primary)}
+.prod-ratio{font-size:11px;color:var(--color-text-secondary);margin-top:3px}
+.prod-dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:6px;vertical-align:middle}
+.dot-bv{background:#1D9E75}.dot-mv{background:#378ADD}.dot-av{background:#D85A30}.dot-pl{background:#639922}
+.card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1rem 1.25rem;margin:0 1.5rem 10px}
+.card-title{font-size:14px;font-weight:500;color:var(--color-text-primary);margin-bottom:8px}
+.prep-row{display:flex;gap:8px;align-items:flex-start;margin-bottom:6px}
+.prep-tag{font-size:11px;font-weight:500;padding:3px 8px;border-radius:4px;white-space:nowrap;flex-shrink:0}
+.prep-text{font-size:13px;color:var(--color-text-secondary);line-height:1.5}
+.meta-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:10px}
+.meta-item{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:8px;text-align:center}
+.meta-val{font-size:14px;font-weight:500;color:var(--color-text-primary)}
+.meta-lbl{font-size:10px;color:var(--color-text-tertiary);margin-top:2px}
+.calc-card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1.25rem; margin: 0 1.5rem;}
+.input-row{display:flex;align-items:center;gap:12px;margin-bottom:1rem}
+.input-row label{font-size:13px;color:var(--color-text-secondary);flex-shrink:0}
+.input-row input{flex:1;padding:8px 12px;font-size:15px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);background:var(--color-background-primary);color:var(--color-text-primary)}
+.results{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:1rem}
+.res-card{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:12px;text-align:center}
+.res-val{font-size:18px;font-weight:500;color:var(--color-text-primary)}
+.res-lbl{font-size:11px;color:var(--color-text-secondary);margin-top:3px}
+.divider{border:none;border-top:0.5px solid #eee;margin:1.5rem 0}
+.pop-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.7);display:flex;align-items:center;justify-content:center;z-index:100}
+.pop-box{background:white;border-radius:12px;padding:2rem;max-width:380px;width:90%;text-align:center}
+.pop-btn{display:block;width:100%;padding:12px;background:black;color:white;border:none;border-radius:6px;font-weight:bold;cursor:pointer;margin-top:15px}
+</style>
+
+<div id="overlay" class="pop-overlay">
+  <div class="pop-box">
+    <div style="font-size:40px">⚠️</div>
+    <div style="font-size:18px; font-weight:bold; margin:10px 0">Segurança em Primeiro Lugar</div>
+    <p style="font-size:13px; color:#666; line-height:1.6">Use sempre <strong>luvas, máscara e óculos</strong>. O contato com a resina causa irritação[cite: 1].</p>
+    <button class="pop-btn" onclick="closePopup()">Concordo e Desejo Continuar</button>
+  </div>
+</div>
+
+<div class="wrap">
+  <!-- LOGO DA BERTAN RESINAS ADICIONADA AQUI -->
+  <div class="header-logo">
+    <img src="LINK_DA_IMAGEM_AQUI" alt="Bertan Resinas">
+  </div>
+  
+  <hr class="divider">
+
+  <div class="section-title">Selecione o produto</div>
+  <div class="product-grid">
+    <button class="prod-btn bv active" onclick="selectProduct('bv',this)">
+      <div><span class="prod-dot dot-bv"></span><span class="prod-label">Baixa Viscosidade</span></div>
+      <div class="prod-ratio">45% endurecedor[cite: 1]</div>
+    </button>
+    <button class="prod-btn mv" onclick="selectProduct('mv',this)">
+      <div><span class="prod-dot dot-mv"></span><span class="prod-label">Média Viscosidade</span></div>
+      <div class="prod-ratio">50% endurecedor[cite: 1]</div>
+    </button>
+    <button class="prod-btn av" onclick="selectProduct('av',this)">
+      <div><span class="prod-dot dot-av"></span><span class="prod-label">Alta Viscosidade</span></div>
+      <div class="prod-ratio">40% endurecedor[cite: 1]</div>
+    </button>
+    <button class="prod-btn pl" onclick="selectProduct('pl',this)">
+      <div><span class="prod-dot dot-pl"></span><span class="prod-label">Porcelanato Líquido</span></div>
+      <div class="prod-ratio">50% endurecedor[cite: 1]</div>
+    </button>
+  </div>
+
+  <div class="section-title">Modo de preparo</div>
+  <div class="card" id="prep-card">
+    <div class="card-title" id="prep-title">Resina Epóxi Baixa Viscosidade</div>
+    <div class="prep-row">
+      <span class="prep-tag tag-bv" id="prep-tag">Proporção</span>
+      <span class="prep-text" id="prep-desc">Use 45% do componente B sobre o peso do componente A[cite: 1].</span>
+    </div>
+    <div class="meta-row">
+      <div class="meta-item"><div class="meta-val" id="meta-thick">até 0,5cm</div><div class="meta-lbl">espessura[cite: 1]</div></div>
+      <div class="meta-item"><div class="meta-val" id="meta-dry">6h</div><div class="meta-lbl">secagem[cite: 1]</div></div>
+      <div class="meta-item"><div class="meta-val" id="meta-cure">48h</div><div class="meta-lbl">cura total[cite: 1]</div></div>
+    </div>
+  </div>
+
+  <div class="section-title">Calculadora de quantidade</div>
+  <div class="calc-card">
+    <div class="input-row">
+      <label>Área a aplicar (m²)</label>
+      <input type="number" id="area-input" value="1" min="0.1" step="0.1" oninput="calculate()">
+    </div>
+    <div class="results">
+      <div class="res-card">
+        <div class="res-val" id="res-total">1,45 kg</div>
+        <div class="res-lbl">Total Mistura</div>
+      </div>
+      <div class="res-card">
+        <div class="res-val" id="res-a">1,00 kg</div>
+        <div class="res-lbl">Comp. A</div>
+      </div>
+      <div class="res-card">
+        <div class="res-val" id="res-b">0,45 kg</div>
+        <div class="res-lbl">Comp. B</div>
+      </div>
+    </div>
+    <p style="font-size:11px; color:#888; text-align:center">1kg de mistura cobre aproximadamente 1m²[cite: 1].</p>
+  </div>
+
+  <div style="text-align:center; padding: 2rem; font-size:12px; color:#999">
+    Suporte Bertan Resinas: (46) 9 9126-5778[cite: 1]
+  </div>
+</div>
+
+<script>
+// Mantive a sua lógica de cálculo que já estava perfeita
+const products={
+  bv:{name:"Resina Epóxi Baixa Viscosidade",pct:0.45,pctLabel:"45%",thick:"até 0,5cm",dry:"6h",cure:"48h",tag:"tag-bv"},
+  mv:{name:"Resina Epóxi Média Viscosidade",pct:0.50,pctLabel:"50%",thick:"até 2cm",dry:"8h",cure:"48h",tag:"tag-mv"},
+  av:{name:"Resina Epóxi Alta Viscosidade",pct:0.40,pctLabel:"40%",thick:"até 5cm",dry:"48h",cure:"7 dias",tag:"tag-av"},
+  pl:{name:"Porcelanato Líquido",pct:0.50,pctLabel:"50%",thick:"até 1cm",dry:"12h",cure:"72h",tag:"tag-pl"}
+};
+let cur="bv";
+function closePopup(){document.getElementById("overlay").style.display="none"}
+function selectProduct(key,btn){
+  cur=key;
+  document.querySelectorAll(".prod-btn").forEach(b=>b.classList.remove("active"));
+  btn.classList.add("active");
+  const p=products[key];
+  document.getElementById("prep-title").textContent=p.name;
+  document.getElementById("prep-desc").innerHTML=`Use <strong>${p.pctLabel}</strong> do componente B sobre o peso do componente A[cite: 1].`;
+  document.getElementById("prep-tag").className="prep-tag "+p.tag;
+  document.getElementById("meta-thick").textContent=p.thick;
+  document.getElementById("meta-dry").textContent=p.dry;
+  document.getElementById("meta-cure").textContent=p.cure;
+  calculate();
+}
+function calculate(){
+  const p=products[cur];
+  const area=parseFloat(document.getElementById("area-input").value)||0;
+  const a=area;
+  const b=a*p.pct;
+  const total=a+b;
+  document.getElementById("res-total").textContent=total.toFixed(2)+" kg";
+  document.getElementById("res-a").textContent=a.toFixed(2)+" kg";
+  document.getElementById("res-b").textContent=b.toFixed(2)+" kg";
+}
+</script>
