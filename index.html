@@ -3,236 +3,319 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manual Bertan Resinas</title>
+    <title>Bertan Resinas - Manual Interativo</title>
     <style>
-        :root { --color-primary: #002D62; --border-radius: 12px; }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Arial, sans-serif; }
-        body { background-color: var(--color-primary); color: #fff; line-height: 1.6; padding-bottom: 80px; }
-        .wrap { max-width: 800px; margin: 0 auto; padding: 2rem; }
-        .header-logo { text-align: center; padding: 3rem 0; background: var(--color-primary); }
-        .header-logo img { max-width: 280px; height: auto; }
-        .section-title { font-size: 14px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin: 2rem 0 1rem; text-align: center; color: rgba(255,255,255,0.9); }
-        
-        /* Botões brancos */
-        .product-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 2rem; }
-        .prod-btn { background: #fff; border: 1px solid #ddd; border-radius: var(--border-radius); padding: 1.25rem; cursor: pointer; text-align: left; color: #333; transition: 0.2s; min-height: 100px; display: flex; flex-direction: column; justify-content: center; }
-        .prod-btn.active { border: 4px solid #000; box-shadow: 0 4px 15px rgba(0,0,0,0.3); transform: scale(1.02); }
-        .prod-label { font-size: 15px; font-weight: 600; display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
-        .prod-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
-        .dot-bv { background: #1D9E75; } .dot-mv { background: #378ADD; } .dot-av { background: #D85A30; } .dot-pl { background: #639922; }
-        .prod-ratio { font-size: 12px; color: #666; }
+        :root {
+            --primary-blue: #002D62;
+            --accent-green: #25d366;
+            --bg-body: #f4f7f6;
+            --card-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            --radius: 20px;
+        }
 
-        /* Cards brancos */
-        .card, .calc-card, .acc-item { background: #fff; border-radius: var(--border-radius); padding: 1.5rem; margin-bottom: 1rem; color: #333; box-shadow: 0 4px 20px rgba(0,0,0,0.2); }
-        .card-title { font-size: 18px; font-weight: 600; margin-bottom: 10px; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
         
-        /* Inputs da Calculadora */
-        .input-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 15px; }
-        label { font-size: 11px; font-weight: 700; color: #666; display: block; margin-bottom: 5px; text-transform: uppercase; }
-        input { width: 100%; padding: 12px; border: 2px solid #eee; border-radius: 8px; font-size: 16px; color: #000; outline-color: var(--color-primary); }
-        
-        /* Caixa de Resultado Automático */
-        .recommendation-box { background: #f0f7ff; border: 2px solid #002D62; border-radius: 10px; padding: 20px; margin-top: 15px; text-align: center; }
-        .rec-weight { font-size: 26px; font-weight: 800; color: #000; display: block; }
-        .rec-product { font-size: 18px; font-weight: 700; color: #002D62; margin: 5px 0; }
-        .rec-desc { font-size: 13px; color: #444; }
+        body { background-color: var(--bg-body); color: #333; overflow-x: hidden; }
 
-        .meta-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 15px; }
-        .meta-item { background: #f4f4f2; border-radius: 8px; padding: 10px; text-align: center; }
-        .meta-val { font-size: 15px; font-weight: 700; }
-        .meta-lbl { font-size: 10px; color: #999; text-transform: uppercase; }
+        /* Estilo Starbucks/Moderno */
+        .hero { 
+            background: var(--primary-blue); 
+            padding: 4rem 2rem; 
+            text-align: center; 
+            border-radius: 0 0 50px 50px;
+            color: white;
+            margin-bottom: -50px;
+        }
+        .hero img { max-width: 250px; margin-bottom: 1rem; }
 
-        .results-mistura { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
-        .res-small { background: #f4f4f2; border-radius: 8px; padding: 10px; text-align: center; }
-        .res-val-small { font-size: 18px; font-weight: 700; color: #000; }
-        
-        .acc-head { cursor: pointer; display: flex; justify-content: space-between; font-weight: 600; padding: 5px 0; }
-        .acc-body { padding-top: 10px; display: none; color: #666; font-size: 14px; }
-        .footer-logo { text-align: center; padding: 3rem 0; border-top: 1px solid rgba(255,255,255,0.1); margin-top: 2rem; }
-        .whatsapp-float { position: fixed; bottom: 20px; right: 20px; background: #25d366; color: #fff; padding: 15px 25px; border-radius: 50px; text-decoration: none; font-weight: 700; box-shadow: 0 4px 10px rgba(0,0,0,0.3); z-index: 999; }
-        
-        .pop-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.9); display: flex; align-items: center; justify-content: center; z-index: 10000; }
-        .pop-box { background: #fff; padding: 2rem; border-radius: 15px; text-align: center; max-width: 90%; color: #333; width: 400px; }
-        .pop-btn { background: #000; color: #fff; border: none; padding: 12px 30px; border-radius: 8px; margin-top: 20px; cursor: pointer; width: 100%; font-weight: 700; }
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; position: relative; z-index: 2; }
+
+        /* Menu de Produtos Estilo Starbucks */
+        .product-selector {
+            display: flex;
+            overflow-x: auto;
+            gap: 20px;
+            padding: 20px 10px;
+            scrollbar-width: none;
+        }
+        .product-selector::-webkit-scrollbar { display: none; }
+
+        .product-card {
+            background: white;
+            min-width: 180px;
+            padding: 20px;
+            border-radius: var(--radius);
+            box-shadow: var(--card-shadow);
+            cursor: pointer;
+            transition: 0.3s;
+            text-align: center;
+            border: 3px solid transparent;
+        }
+        .product-card.active { border-color: var(--accent-green); transform: translateY(-10px); }
+        .product-card img { width: 80px; height: 80px; object-fit: contain; margin-bottom: 10px; }
+        .product-card h4 { font-size: 14px; color: var(--primary-blue); }
+
+        /* Calculadoras */
+        .main-card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 30px;
+            box-shadow: var(--card-shadow);
+            margin-top: 20px;
+        }
+
+        .shape-selector {
+            display: flex;
+            background: #eee;
+            border-radius: 50px;
+            padding: 5px;
+            margin-bottom: 25px;
+        }
+        .shape-btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            background: transparent;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+        .shape-btn.active { background: var(--primary-blue); color: white; }
+
+        .input-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .input-group { display: flex; flex-direction: column; }
+        label { font-size: 12px; font-weight: 700; color: #888; margin-bottom: 5px; text-transform: uppercase; }
+        input { 
+            padding: 15px; 
+            border: 2px solid #f0f0f0; 
+            border-radius: 12px; 
+            font-size: 16px; 
+            outline: none;
+            transition: 0.3s;
+        }
+        input:focus { border-color: var(--primary-blue); }
+
+        /* Resultado Premium */
+        .result-panel {
+            background: #f9f9f9;
+            border-radius: var(--radius);
+            padding: 25px;
+            text-align: center;
+            border: 1px dashed #ddd;
+        }
+        .total-weight { font-size: 32px; font-weight: 800; color: var(--primary-blue); display: block; }
+        .mix-details { 
+            display: flex; 
+            justify-content: space-around; 
+            margin-top: 20px; 
+            padding-top: 20px; 
+            border-top: 1px solid #eee; 
+        }
+        .mix-box h5 { font-size: 11px; color: #aaa; text-transform: uppercase; }
+        .mix-box p { font-size: 18px; font-weight: 700; color: #333; }
+
+        /* Info Card */
+        .info-strip {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            background: var(--primary-blue);
+            color: white;
+            padding: 15px;
+            border-radius: 15px;
+            font-size: 13px;
+        }
+
+        .whatsapp-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--accent-green);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3);
+            z-index: 100;
+        }
+
+        .footer { text-align: center; padding: 40px; color: #aaa; font-size: 12px; }
     </style>
 </head>
 <body>
 
-<div id="overlay" class="pop-overlay">
-    <div class="pop-box">
-        <div style="font-size:40px">⚠️</div>
-        <h2 style="margin-bottom:10px">EPI Obrigatório</h2>
-        <p style="font-size:14px; color:#666">Use sempre luvas, máscara e óculos de proteção. O contato com o produto causa irritação.</p>
-        <button class="pop-btn" onclick="document.getElementById('overlay').style.display='none'">ENTENDIDO</button>
-    </div>
+<div class="hero">
+    <img src="bertan%20branco%20logo.png" alt="Bertan Resinas">
+    <p>Manual Técnico & Calculadora Inteligente</p>
 </div>
 
-<div class="wrap">
-    <div class="header-logo">
-        <img src="bertan%20branco%20logo.png" alt="Bertan Resinas">
+<div class="container">
+    <!-- Seletor de Resina (Estilo Starbucks) -->
+    <div class="product-selector">
+        <div class="product-card active" onclick="changeResin('bv', this)">
+            <img src="bv-bottle.png" alt="Baixa">
+            <h4>Baixa Viscosidade</h4>
+            <small>Até 0,5cm</small>
+        </div>
+        <div class="product-card" onclick="changeResin('mv', this)">
+            <img src="mv-bottle.png" alt="Média">
+            <h4>Média Viscosidade</h4>
+            <small>Até 2,0cm</small>
+        </div>
+        <div class="product-card" onclick="changeResin('av', this)">
+            <img src="av-bottle.png" alt="Alta">
+            <h4>Alta Viscosidade</h4>
+            <small>Até 5,0cm</small>
+        </div>
+        <div class="product-card" onclick="changeResin('pl', this)">
+            <img src="pl-bottle.png" alt="Porcelanato">
+            <h4>Porcelanato Líquido</h4>
+            <small>Pisos e Mesas</small>
+        </div>
     </div>
 
-    <!-- CALCULADORA DE DIMENSÕES -->
-    <div class="section-title">Calculadora de Quantidade e Viscosidade</div>
-    <div class="calc-card">
-        <p style="font-size: 13px; color: #666; margin-bottom: 15px; text-align: center;">Insira as medidas em <strong>centímetros (cm)</strong></p>
-        <div class="input-row">
-            <div>
-                <label>Comprimento</label>
-                <input type="number" id="v-comp" placeholder="Ex: 30" oninput="mainCalc()">
+    <div class="main-card">
+        <!-- Seletor de Formato -->
+        <div class="shape-selector">
+            <button class="shape-btn active" onclick="changeShape('rect', this)">Retangular / Quadrado</button>
+            <button class="shape-btn" onclick="changeShape('circ', this)">Circular / Redondo</button>
+        </div>
+
+        <!-- Inputs Dinâmicos -->
+        <div class="input-grid" id="inputs-rect">
+            <div class="input-group">
+                <label>Comprimento (cm)</label>
+                <input type="number" id="dim-c" placeholder="0" oninput="calculate()">
             </div>
-            <div>
-                <label>Largura</label>
-                <input type="number" id="v-larg" placeholder="Ex: 30" oninput="mainCalc()">
-            </div>
-            <div>
-                <label>Altura (Espessura)</label>
-                <input type="number" id="v-alt" placeholder="Ex: 1" step="0.1" oninput="mainCalc()">
+            <div class="input-group">
+                <label>Largura (cm)</label>
+                <input type="number" id="dim-l" placeholder="0" oninput="calculate()">
             </div>
         </div>
 
-        <div id="resultado-final" class="recommendation-box" style="display: none;">
-            <span class="rec-weight" id="peso-total">0.00 kg</span>
-            <div class="rec-product" id="produto-rec">Baixa Viscosidade</div>
-            <p class="rec-desc" id="msg-rec">Ideal para esta espessura.</p>
+        <div class="input-grid" id="inputs-circ" style="display: none;">
+            <div class="input-group" style="grid-column: span 2;">
+                <label>Diâmetro do Círculo (cm)</label>
+                <input type="number" id="dim-d" placeholder="0" oninput="calculate()">
+            </div>
+        </div>
+
+        <div class="input-group" style="margin-bottom: 25px;">
+            <label>Espessura / Altura desejada (cm)</label>
+            <input type="number" id="dim-a" placeholder="0" step="0.1" oninput="calculate()">
+        </div>
+
+        <!-- Painel de Resultado -->
+        <div class="result-panel">
+            <label>Total de Mistura Necessária</label>
+            <span class="total-weight" id="res-total">0.000 kg</span>
             
-            <div class="results-mistura">
-                <div class="res-small">
-                    <div class="res-val-small" id="peso-a">0.00 kg</div>
-                    <div style="font-size: 10px; color: #999;">RESINA (A)</div>
+            <div class="mix-details">
+                <div class="mix-box">
+                    <h5>Resina (A)</h5>
+                    <p id="res-a">0.000 kg</p>
                 </div>
-                <div class="res-small">
-                    <div class="res-val-small" id="peso-b">0.00 kg</div>
-                    <div style="font-size: 10px; color: #999;" id="label-b">ENDURECEDOR</div>
+                <div class="mix-box">
+                    <h5 id="lbl-b">Endurecedor (B)</h5>
+                    <p id="res-b">0.000 kg</p>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="section-title">Informações Técnicas do Produto</div>
-    <div class="product-grid">
-        <button class="prod-btn active" id="btn-bv" onclick="manualSelect('bv')">
-            <div class="prod-label"><span class="prod-dot dot-bv"></span> Baixa Viscosidade</div>
-            <div class="prod-ratio">45% endurecedor</div>
-        </button>
-        <button class="prod-btn" id="btn-mv" onclick="manualSelect('mv')">
-            <div class="prod-label"><span class="prod-dot dot-mv"></span> Média Viscosidade</div>
-            <div class="prod-ratio">50% endurecedor</div>
-        </button>
-        <button class="prod-btn" id="btn-av" onclick="manualSelect('av')">
-            <div class="prod-label"><span class="prod-dot dot-av"></span> Alta Viscosidade</div>
-            <div class="prod-ratio">40% endurecedor</div>
-        </button>
-        <button class="prod-btn" id="btn-pl" onclick="manualSelect('pl')">
-            <div class="prod-label"><span class="prod-dot dot-pl"></span> Porcelanato Líquido</div>
-            <div class="prod-ratio">50% endurecedor</div>
-        </button>
-    </div>
-
-    <div class="card">
-        <h3 id="info-name">Resina Epóxi Baixa Viscosidade</h3>
-        <div class="meta-row">
-            <div class="meta-item"><div class="meta-val" id="m-thick">até 0,5cm</div><div class="meta-lbl">espessura</div></div>
-            <div class="meta-item"><div class="meta-val" id="m-dry">6h</div><div class="meta-lbl">secagem</div></div>
-            <div class="meta-item"><div class="meta-val" id="m-cure">48h</div><div class="meta-lbl">cura total</div></div>
+        <!-- Faixa de Informação Técnica -->
+        <div class="info-strip">
+            <div id="info-ratio">Proporção: 45%</div>
+            <div id="info-time">Mistura: 4 min</div>
+            <div id="info-dry">Secagem: 6h</div>
         </div>
-        <p id="info-desc" style="font-size:13px; margin-top:15px; color:#666">Misture por 4 minutos. Tempo de uso: 8 a 15 min.</p>
-    </div>
-
-    <div class="section-title">Guia de Pigmentação</div>
-    <div class="acc-item">
-        <div class="acc-head" onclick="toggle(this)">Pasta (Sólido) <span>+</span></div>
-        <div class="acc-body">Até 10% sobre o peso da Resina (A).</div>
-    </div>
-    <div class="acc-item">
-        <div class="acc-head" onclick="toggle(this)">Pó (Metalizado) <span>+</span></div>
-        <div class="acc-body">Até 5% sobre o peso da Resina (A).</div>
-    </div>
-    <div class="acc-item">
-        <div class="acc-head" onclick="toggle(this)">Líquido (Corante) <span>+</span></div>
-        <div class="acc-body">De 1% a 3% sobre o peso da Resina (A).</div>
-    </div>
-
-    <div class="footer-logo">
-        <img src="bertan%20branco%20logo.png" alt="Bertan Resinas" style="max-width:150px; margin-bottom:10px">
-        <p style="font-size:12px; opacity:0.8">© BERTAN RESINAS - Qualidade e Performance</p>
-        <p style="font-size:12px; opacity:0.8; margin-top:5px">Suporte: (46) 9 9115-5803</p>
     </div>
 </div>
 
-<a href="https://wa.me/5546991155803" class="whatsapp-float" target="_blank">Suporte WhatsApp</a>
+<div class="footer">
+    © BERTAN RESINAS - Qualidade e Performance<br>
+    Suporte Técnico: (46) 99115-5803
+</div>
+
+<a href="https://wa.me/5546991155803" class="whatsapp-btn" target="_blank">📲 Suporte via WhatsApp</a>
 
 <script>
-    const data = {
-        bv: { name: 'Resina Epóxi Baixa Viscosidade', pct: 0.45, thick: 'até 0,5cm', dry: '6h', cure: '48h', desc: 'Misture por 4 minutos. Ideal para chaveiros e selagens.' },
-        mv: { name: 'Resina Epóxi Média Viscosidade', pct: 0.50, thick: 'até 2cm', dry: '8h', cure: '48h', desc: 'Misture por 3 minutos. Ideal para bandejas e peças decorativas.' },
-        av: { name: 'Resina Epóxi Alta Viscosidade', pct: 0.40, thick: 'até 5cm', dry: '48h', cure: '7 dias', desc: 'Misture por 3 minutos. Especial para River Tables e peças altas.' },
-        pl: { name: 'Porcelanato Líquido', pct: 0.50, thick: 'até 1cm', dry: '12h', cure: '72h', desc: 'Misture por 3 minutos. Autonivelante para pisos e mesas.' }
+    const resins = {
+        bv: { ratio: 0.45, time: '4 min', dry: '6h', thick: 0.5 },
+        mv: { ratio: 0.50, time: '3 min', dry: '8h', thick: 2.0 },
+        av: { ratio: 0.40, time: '3 min', dry: '48h', thick: 5.0 },
+        pl: { ratio: 0.50, time: '3 min', dry: '12h', thick: 1.0 }
     };
 
-    function toggle(el) {
-        const body = el.nextElementSibling;
-        const isVisible = body.style.display === 'block';
-        body.style.display = isVisible ? 'none' : 'block';
-        el.querySelector('span').innerText = isVisible ? '+' : '-';
+    let currentResin = 'bv';
+    let currentShape = 'rect';
+
+    function changeResin(key, el) {
+        currentResin = key;
+        document.querySelectorAll('.product-card').forEach(c => c.classList.remove('active'));
+        el.classList.add('active');
+        
+        // Atualiza info strips
+        document.getElementById('info-ratio').innerText = `Proporção: ${resins[key].ratio * 100}%`;
+        document.getElementById('info-time').innerText = `Mistura: ${resins[key].time}`;
+        document.getElementById('info-dry').innerText = `Secagem: ${resins[key].dry}`;
+        document.getElementById('lbl-b').innerText = `Endurecedor (${resins[key].ratio * 100}%)`;
+        
+        calculate();
     }
 
-    function manualSelect(key) {
-        document.querySelectorAll('.prod-btn').forEach(b => b.classList.remove('active'));
-        document.getElementById('btn-' + key).classList.add('active');
-        updateInfoCard(key);
-        mainCalc(); // Recalcula se o usuário mudar o produto manualmente
+    function changeShape(shape, el) {
+        currentShape = shape;
+        document.querySelectorAll('.shape-btn').forEach(b => b.classList.remove('active'));
+        el.classList.add('active');
+        
+        document.getElementById('inputs-rect').style.display = shape === 'rect' ? 'grid' : 'none';
+        document.getElementById('inputs-circ').style.display = shape === 'circ' ? 'grid' : 'none';
+        
+        calculate();
     }
 
-    function updateInfoCard(key) {
-        const p = data[key];
-        document.getElementById('info-name').innerText = p.name;
-        document.getElementById('m-thick').innerText = p.thick;
-        document.getElementById('m-dry').innerText = p.dry;
-        document.getElementById('m-cure').innerText = p.cure;
-        document.getElementById('info-desc').innerText = p.desc;
-    }
+    function calculate() {
+        const h = parseFloat(document.getElementById('dim-a').value) || 0;
+        let area = 0;
 
-    function mainCalc() {
-        const c = parseFloat(document.getElementById('v-comp').value) || 0;
-        const l = parseFloat(document.getElementById('v-larg').value) || 0;
-        const a = parseFloat(document.getElementById('v-alt').value) || 0;
-        const resBox = document.getElementById('resultado-final');
-
-        if (c > 0 && l > 0 && a > 0) {
-            resBox.style.display = 'block';
-            
-            // Volume cm3 para kg (aprox 1.1 densidade)
-            const pesoTotal = (c * l * a * 1.1) / 1000;
-            document.getElementById('peso-total').innerText = pesoTotal.toFixed(2) + " kg";
-
-            // Lógica de recomendação
-            let recKey = '';
-            if (a <= 0.6) recKey = 'bv';
-            else if (a <= 2.1) recKey = 'mv';
-            else recKey = 'av';
-
-            // Seleciona visualmente o botão recomendado
-            document.querySelectorAll('.prod-btn').forEach(b => b.classList.remove('active'));
-            document.getElementById('btn-' + recKey).classList.add('active');
-            updateInfoCard(recKey);
-
-            document.getElementById('produto-rec').innerText = data[recKey].name;
-            document.getElementById('msg-rec').innerText = `Recomendada para espessura de ${a}cm.`;
-
-            // Cálculo da mistura A e B
-            const p = data[recKey];
-            const compA = pesoTotal / (1 + p.pct);
-            const compB = pesoTotal - compA;
-
-            document.getElementById('peso-a').innerText = compA.toFixed(2) + " kg";
-            document.getElementById('peso-b').innerText = compB.toFixed(2) + " kg";
-            document.getElementById('label-b').innerText = `ENDURECEDOR (${p.pct*100}%)`;
-
+        if (currentShape === 'rect') {
+            const c = parseFloat(document.getElementById('dim-c').value) || 0;
+            const l = parseFloat(document.getElementById('dim-l').value) || 0;
+            area = c * l;
         } else {
-            resBox.style.display = 'none';
+            const d = parseFloat(document.getElementById('dim-d').value) || 0;
+            const r = d / 2;
+            area = Math.PI * Math.pow(r, 2);
+        }
+
+        const volumeCm3 = area * h;
+        const totalWeight = (volumeCm3 * 1.1) / 1000; // Densidade aproximada 1.1
+
+        const resinA = totalWeight / (1 + resins[currentResin].ratio);
+        const hardenerB = totalWeight - resinA;
+
+        document.getElementById('res-total').innerText = totalWeight.toFixed(3) + ' kg';
+        document.getElementById('res-a').innerText = resinA.toFixed(3) + ' kg';
+        document.getElementById('res-b').innerText = hardenerB.toFixed(3) + ' kg';
+
+        // Alerta de segurança de espessura
+        if (h > resins[currentResin].thick && h > 0) {
+            document.getElementById('res-total').style.color = 'red';
+        } else {
+            document.getElementById('res-total').style.color = 'var(--primary-blue)';
         }
     }
+
+    // Inicialização
+    changeResin('bv', document.querySelector('.product-card'));
 </script>
+
 </body>
 </html>
