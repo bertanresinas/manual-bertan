@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bertan Resinas - Manual Interativo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary-blue: #002D62;
@@ -11,13 +12,18 @@
             --bg-body: #f4f7f6;
             --card-shadow: 0 10px 30px rgba(0,0,0,0.08);
             --radius: 20px;
+
+            /* Cores dos Produtos */
+            --color-bv: #1D9E75; /* Verde */
+            --color-mv: #fbc02d; /* Amarelo (tom escuro para leitura) */
+            --color-av: #d32f2f; /* Vermelho */
+            --color-pl: #002D62; /* Azul (usando o primário) */
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
         
         body { background-color: var(--bg-body); color: #333; overflow-x: hidden; }
 
-        /* Estilo Starbucks/Moderno */
         .hero { 
             background: var(--primary-blue); 
             padding: 4rem 2rem; 
@@ -26,11 +32,11 @@
             color: white;
             margin-bottom: -50px;
         }
-        .hero img { max-width: 250px; margin-bottom: 0; } /* Ajustado margin */
+        .hero img { max-width: 250px; margin-bottom: 0; }
 
         .container { max-width: 900px; margin: 0 auto; padding: 20px; position: relative; z-index: 2; }
 
-        /* Menu de Produtos Estilo Starbucks */
+        /* Menu de Produtos */
         .product-selector {
             display: flex;
             overflow-x: auto;
@@ -43,17 +49,28 @@
         .product-card {
             background: white;
             min-width: 180px;
-            padding: 20px;
+            padding: 25px 20px;
             border-radius: var(--radius);
             box-shadow: var(--card-shadow);
             cursor: pointer;
             transition: 0.3s;
             text-align: center;
             border: 3px solid transparent;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 120px;
         }
-        .product-card.active { border-color: var(--accent-green); transform: translateY(-10px); }
-        .product-card img { width: 80px; height: 80px; object-fit: contain; margin-bottom: 10px; }
-        .product-card h4 { font-size: 14px; color: var(--primary-blue); }
+        .product-card.active { border-color: #ccc; transform: translateY(-5px); }
+        
+        /* Classes de Cores dos Textos */
+        .product-card h4 { font-size: 16px; font-weight: 700; margin-bottom: 5px; }
+        .txt-bv { color: var(--color-bv); }
+        .txt-mv { color: var(--color-mv); }
+        .txt-av { color: var(--color-av); }
+        .txt-pl { color: var(--color-pl); }
+
+        .product-card small { font-size: 12px; color: #666; font-weight: 400; }
 
         /* Calculadoras */
         .main-card {
@@ -80,6 +97,7 @@
             background: transparent;
             font-weight: 600;
             transition: 0.3s;
+            font-size: 14px;
         }
         .shape-btn.active { background: var(--primary-blue); color: white; }
 
@@ -90,7 +108,7 @@
             margin-bottom: 20px;
         }
         .input-group { display: flex; flex-direction: column; }
-        label { font-size: 12px; font-weight: 700; color: #888; margin-bottom: 5px; text-transform: uppercase; }
+        label { font-size: 12px; font-weight: 700; color: #888; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.5px; }
         input { 
             padding: 15px; 
             border: 2px solid #f0f0f0; 
@@ -98,6 +116,7 @@
             font-size: 16px; 
             outline: none;
             transition: 0.3s;
+            color: #000;
         }
         input:focus { border-color: var(--primary-blue); }
 
@@ -109,7 +128,7 @@
             text-align: center;
             border: 1px dashed #ddd;
         }
-        .total-weight { font-size: 32px; font-weight: 800; color: var(--primary-blue); display: block; }
+        .total-weight { font-size: 32px; font-weight: 800; color: var(--primary-blue); display: block; margin: 10px 0; }
         .mix-details { 
             display: flex; 
             justify-content: space-around; 
@@ -117,7 +136,7 @@
             padding-top: 20px; 
             border-top: 1px solid #eee; 
         }
-        .mix-box h5 { font-size: 11px; color: #aaa; text-transform: uppercase; }
+        .mix-box h5 { font-size: 11px; color: #aaa; text-transform: uppercase; letter-spacing: 0.5px; }
         .mix-box p { font-size: 18px; font-weight: 700; color: #333; }
 
         /* Info Card */
@@ -127,9 +146,10 @@
             margin-top: 20px;
             background: var(--primary-blue);
             color: white;
-            padding: 15px;
+            padding: 15px 20px;
             border-radius: 15px;
             font-size: 13px;
+            font-weight: 600;
         }
 
         .whatsapp-btn {
@@ -142,174 +162,3 @@
             border-radius: 50px;
             text-decoration: none;
             font-weight: 700;
-            box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3);
-            z-index: 100;
-        }
-
-        .footer { text-align: center; padding: 40px; color: #aaa; font-size: 12px; }
-    </style>
-</head>
-<body>
-
-<div class="hero">
-    <img src="bertan%20branco%20logo.png" alt="Bertan Resinas">
-    </div>
-
-<div class="container">
-    <div class="product-selector">
-        <div class="product-card active" onclick="changeResin('bv', this)">
-            <img src="bv-bottle.png" alt="Baixa">
-            <h4>Baixa Viscosidade</h4>
-            <small>Até 0,5cm</small>
-        </div>
-        <div class="product-card" onclick="changeResin('mv', this)">
-            <img src="mv-bottle.png" alt="Média">
-            <h4>Média Viscosidade</h4>
-            <small>Até 2,0cm</small>
-        </div>
-        <div class="product-card" onclick="changeResin('av', this)">
-            <img src="av-bottle.png" alt="Alta">
-            <h4>Alta Viscosidade</h4>
-            <small>Até 5,0cm</small>
-        </div>
-        <div class="product-card" onclick="changeResin('pl', this)">
-            <img src="pl-bottle.png" alt="Porcelanato">
-            <h4>Porcelanato Líquido</h4>
-            <small>Pisos e Mesas</small>
-        </div>
-    </div>
-
-    <div class="main-card">
-        <div class="shape-selector">
-            <button class="shape-btn active" onclick="changeShape('rect', this)">Retangular / Quadrado</button>
-            <button class="shape-btn" onclick="changeShape('circ', this)">Circular / Redondo</button>
-        </div>
-
-        <div class="input-grid" id="inputs-rect">
-            <div class="input-group">
-                <label>Comprimento (cm)</label>
-                <input type="number" id="dim-c" placeholder="0" oninput="calculate()">
-            </div>
-            <div class="input-group">
-                <label>Largura (cm)</label>
-                <input type="number" id="dim-l" placeholder="0" oninput="calculate()">
-            </div>
-        </div>
-
-        <div class="input-grid" id="inputs-circ" style="display: none;">
-            <div class="input-group" style="grid-column: span 2;">
-                <label>Diâmetro do Círculo (cm)</label>
-                <input type="number" id="dim-d" placeholder="0" oninput="calculate()">
-            </div>
-        </div>
-
-        <div class="input-group" style="margin-bottom: 25px;">
-            <label>Espessura / Altura desejada (cm)</label>
-            <input type="number" id="dim-a" placeholder="0" step="0.1" oninput="calculate()">
-        </div>
-
-        <div class="result-panel">
-            <label>Total de Mistura Necessária</label>
-            <span class="total-weight" id="res-total">0.000 kg</span>
-            
-            <div class="mix-details">
-                <div class="mix-box">
-                    <h5>Resina (A)</h5>
-                    <p id="res-a">0.000 kg</p>
-                </div>
-                <div class="mix-box">
-                    <h5 id="lbl-b">Endurecedor (B)</h5>
-                    <p id="res-b">0.000 kg</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="info-strip">
-            <div id="info-ratio">Proporção: 45%</div>
-            <div id="info-time">Mistura: 4 min</div>
-            <div id="info-dry">Secagem: 6h</div>
-        </div>
-    </div>
-</div>
-
-<div class="footer">
-    © BERTAN RESINAS - Qualidade e Performance<br>
-    Suporte Técnico: (46) 99115-5803
-</div>
-
-<a href="https://wa.me/5546991155803" class="whatsapp-btn" target="_blank">📲 Suporte via WhatsApp</a>
-
-<script>
-    const resins = {
-        bv: { ratio: 0.45, time: '4 min', dry: '6h', thick: 0.5 },
-        mv: { ratio: 0.50, time: '3 min', dry: '8h', thick: 2.0 },
-        av: { ratio: 0.40, time: '3 min', dry: '48h', thick: 5.0 },
-        pl: { ratio: 0.50, time: '3 min', dry: '12h', thick: 1.0 }
-    };
-
-    let currentResin = 'bv';
-    let currentShape = 'rect';
-
-    function changeResin(key, el) {
-        currentResin = key;
-        document.querySelectorAll('.product-card').forEach(c => c.classList.remove('active'));
-        el.classList.add('active');
-        
-        // Atualiza info strips
-        document.getElementById('info-ratio').innerText = `Proporção: ${resins[key].ratio * 100}%`;
-        document.getElementById('info-time').innerText = `Mistura: ${resins[key].time}`;
-        document.getElementById('info-dry').innerText = `Secagem: ${resins[key].dry}`;
-        document.getElementById('lbl-b').innerText = `Endurecedor (${resins[key].ratio * 100}%)`;
-        
-        calculate();
-    }
-
-    function changeShape(shape, el) {
-        currentShape = shape;
-        document.querySelectorAll('.shape-btn').forEach(b => b.classList.remove('active'));
-        el.classList.add('active');
-        
-        document.getElementById('inputs-rect').style.display = shape === 'rect' ? 'grid' : 'none';
-        document.getElementById('inputs-circ').style.display = shape === 'circ' ? 'grid' : 'none';
-        
-        calculate();
-    }
-
-    function calculate() {
-        const h = parseFloat(document.getElementById('dim-a').value) || 0;
-        let area = 0;
-
-        if (currentShape === 'rect') {
-            const c = parseFloat(document.getElementById('dim-c').value) || 0;
-            const l = parseFloat(document.getElementById('dim-l').value) || 0;
-            area = c * l;
-        } else {
-            const d = parseFloat(document.getElementById('dim-d').value) || 0;
-            const r = d / 2;
-            area = Math.PI * Math.pow(r, 2);
-        }
-
-        const volumeCm3 = area * h;
-        const totalWeight = (volumeCm3 * 1.1) / 1000; // Densidade aproximada 1.1
-
-        const resinA = totalWeight / (1 + resins[currentResin].ratio);
-        const hardenerB = totalWeight - resinA;
-
-        document.getElementById('res-total').innerText = totalWeight.toFixed(3) + ' kg';
-        document.getElementById('res-a').innerText = resinA.toFixed(3) + ' kg';
-        document.getElementById('res-b').innerText = hardenerB.toFixed(3) + ' kg';
-
-        // Alerta de segurança de espessura
-        if (h > resins[currentResin].thick && h > 0) {
-            document.getElementById('res-total').style.color = 'red';
-        } else {
-            document.getElementById('res-total').style.color = 'var(--primary-blue)';
-        }
-    }
-
-    // Inicialização
-    changeResin('bv', document.querySelector('.product-card'));
-</script>
-
-</body>
-</html>
